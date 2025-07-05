@@ -150,5 +150,9 @@ C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\refint
 C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\BookManager.pdb
 C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\BookManager.genruntimeconfig.cache
 C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\ref\BookManager.dll
-C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\BookManager_MarkupCompile.lref
 C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\App.baml
+C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\Views\AuthorManagementWindow.baml
+C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\Views\CategoryManagementWindow.baml
+C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\Views\AuthorManagementWindow.g.cs
+C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\Views\CategoryManagementWindow.g.cs
+C:\Users\SonLam29\Desktop\DuAnCaNhan\BookManager\obj\Debug\net8.0-windows\BookManager.sourcelink.json

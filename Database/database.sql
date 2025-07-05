@@ -55,24 +55,3 @@ CREATE INDEX IX_Books_AuthorId ON Books(AuthorId);
 CREATE INDEX IX_Books_Title ON Books(Title);
 
 PRINT 'Database và các bảng đã được tạo thành công!';
-
-INSERT INTO Categories (CategoryName, Description)
-VALUES
-(N'Khoa học', N'Sách liên quan đến khoa học tự nhiên và công nghệ.'),
-(N'Văn học', N'Tác phẩm văn học cổ điển và hiện đại.'),
-(N'Kinh tế', N'Sách về kinh doanh, tài chính, quản lý.'),
-(N'Lịch sử', N'Sách viết về lịch sử thế giới và Việt Nam.');
-
-INSERT INTO Authors (FirstName, LastName, Nationality)
-VALUES
-(N'Isaac', N'Newton', N'Anh'),
-(N'Nguyễn Nhật', N'Ánh', N'Việt Nam'),
-(N'Adam', N'Smith', N'Scotland'),
-(N'Howard', N'Zinn', N'Mỹ');
-
-INSERT INTO Books (Title, ISBN, CategoryId, AuthorId, PublishYear, Pages, Price, StockQuantity, Description)
-VALUES
-(N'Triết học tự nhiên', N'978-1234567890', 1, 1, 1687, 500, 99.99, 10, N'Tác phẩm vật lý kinh điển của Isaac Newton.'),
-(N'Mắt biếc', N'978-6042089399', 2, 2, 1990, 200, 5.99, 50, N'Truyện nổi tiếng của Nguyễn Nhật Ánh.'),
-(N'Wealth of Nations', N'978-0140432084', 3, 3, 1776, 400, 15.50, 30, N'Tác phẩm kinh tế học cổ điển của Adam Smith.'),
-(N'A People''s History of the United States', N'978-0062397348', 4, 4, 1980, 700, 12.00, 20, N'Cái nhìn lịch sử từ góc độ dân thường.');

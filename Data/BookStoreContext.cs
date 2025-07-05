@@ -13,51 +13,73 @@ namespace BookManager.Data
 {
     public class BookStoreContext : DbContext
     {
-        public DbSet<Book> Books { get; set; }
+        public DbSet<Books> Books { get; set; }
         public DbSet<Authors> Authors { get; set; }
         public DbSet<Categories> Categories { get; set; }
-        private readonly Configuration _configuration;
 
         public BookStoreContext()
         {
-
         }
 
-        public BookStoreContext(Configuration configuration)
+        public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options)
         {
-            _configuration = configuration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true)
-                .Build();
-            var connectionString = builder.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                try
+                {
+                    var builder = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .Build();
+
+                    var connectionString = builder.GetConnectionString("DefaultConnection");
+
+                    // Fallback connection string if appsettings.json is not found
+                    if (string.IsNullOrEmpty(connectionString))
+                    {
+                        connectionString = "Server=SonLam;Database=BookStoreManagement;User Id=sa;Password=123;TrustServerCertificate=true;Encrypt=false;";
+                    }
+
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
+                catch (Exception)
+                {
+                    // Fallback to default connection string if configuration fails
+                    var fallbackConnectionString = "Server=SonLam;Database=BookStoreManagement;User Id=sa;Password=123;TrustServerCertificate=true;Encrypt=false;";
+                    optionsBuilder.UseSqlServer(fallbackConnectionString);
+                }
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>(entity =>
+            // Configure Book entity
+            modelBuilder.Entity<Books>(entity =>
             {
                 entity.HasKey(e => e.BookId);
-                entity.Property(e => e.Title).IsRequired().HasMaxLength(1000);
-                entity.Property(e => e.ISBN).HasMaxLength(50);
+                entity.Property(e => e.Title).IsRequired().HasMaxLength(300);
+                entity.Property(e => e.ISBN).HasMaxLength(20);
                 entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.Description).HasMaxLength(1000);
                 entity.Property(e => e.CreatedDate).HasDefaultValueSql("GETDATE()");
 
-                entity.HasOne<Categories>()
-                    .WithMany()
-                    .HasForeignKey(e => e.CategoryId)
-                    .OnDelete(DeleteBehavior.SetNull);
-                entity.HasOne<Authors>()
-                    .WithOne()
-                    .HasForeignKey<Authors>(e => e.AuthorId)
-                    .OnDelete(DeleteBehavior.SetNull);
+                // Configure relationships
+                entity.HasOne(b => b.Category)
+                      .WithMany(c => c.Books)
+                      .HasForeignKey(b => b.CategoryId)
+                      .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(b => b.Author)
+                      .WithMany(a => a.Books)
+                      .HasForeignKey(b => b.AuthorId)
+                      .OnDelete(DeleteBehavior.SetNull);
             });
+
+            // Configure Authors entity
             modelBuilder.Entity<Authors>(entity =>
             {
                 entity.HasKey(e => e.AuthorId);
@@ -66,6 +88,8 @@ namespace BookManager.Data
                 entity.Property(e => e.Nationality).HasMaxLength(50);
                 entity.Property(e => e.CreatedDate).HasDefaultValueSql("GETDATE()");
             });
+
+            // Configure Categories entity
             modelBuilder.Entity<Categories>(entity =>
             {
                 entity.HasKey(e => e.CategoryId);
