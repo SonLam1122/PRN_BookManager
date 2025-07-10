@@ -109,11 +109,3 @@ Chúng tôi hoan nghênh các đóng góp\! Nếu bạn muốn đóng góp cho d
 4.  Đẩy lên nhánh (`git push origin feature/AmazingFeature`)
 5.  Mở một Pull Request
 
------
-
-## 📝 Giấy phép
-
-Dự án này được cấp phép theo Giấy phép MIT. Xem tệp `LICENSE` để biết thêm chi tiết.
-
-```
-```
